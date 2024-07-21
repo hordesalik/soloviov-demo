@@ -3,7 +3,7 @@ services:
     hostname: soloviov-demo
     image: hordesalik/soloviov-demo:1.1.0
     ports:
-      - 8080:80
+      - 80:80
 
   short-time-code:
     hostname: short-time-code
