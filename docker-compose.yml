@@ -1,11 +1,12 @@
 services:
   soloviov-demo-web-proxy:
     hostname: soloviov-demo-web-proxy
-    image: nginx:1.27.0-alpine-slim
+    build:
+      dockerfile: ./soloviov-demo-web-proxy/dev.Dockerfile
     ports:
       - 8080:80
     volumes:
-      - ./nginx.default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./soloviov-demo-web-proxy/nginx.default.conf:/etc/nginx/conf.d/default.conf:ro
 
   short-time-code:
     hostname: short-time-code
