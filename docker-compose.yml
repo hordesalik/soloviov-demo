@@ -8,6 +8,8 @@ services:
         condition: service_started
       soloviov-demo-frontend:
         condition: service_started
+      the-page-mongo-express:
+        condition: service_started
       the-page-backend:
         condition: service_started
       the-page-frontend:
@@ -83,12 +85,11 @@ services:
         condition: service_healthy
     image: mongo-express:1.0.2
     restart: always
-    ports:
-      - 8081:8081
     environment:
       ME_CONFIG_MONGODB_URL: mongodb://the-page-mongo:27017/
       ME_CONFIG_MONGODB_SERVER: the-page-mongo
       ME_CONFIG_MONGODB_HOST: the-page-mongo
+      ME_CONFIG_SITE_BASEURL: /the-page-mongo-express/
       ME_CONFIG_BASICAUTH: false
       ME_CONFIG_BASICAUTH_FILE: /run/secrets/the_page_me_config_basicauth
       ME_CONFIG_BASICAUTH_USERNAME_FILE: /run/secrets/the_page_me_config_basicauth_username
