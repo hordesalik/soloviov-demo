@@ -1,6 +1,17 @@
 services:
   soloviov-demo-web-proxy:
     hostname: soloviov-demo-web-proxy
+    depends_on:
+      short-time-code:
+        condition: service_started
+      action-request:
+        condition: service_started
+      soloviov-demo-frontend:
+        condition: service_started
+      the-page-backend:
+        condition: service_started
+      the-page-frontend:
+        condition: service_started
     build:
       dockerfile: ./soloviov-demo-web-proxy/dev.Dockerfile
     restart: always
