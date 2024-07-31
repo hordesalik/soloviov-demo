@@ -2,18 +2,12 @@ services:
   soloviov-demo-web-proxy:
     hostname: soloviov-demo-web-proxy
     depends_on:
-      short-time-code:
-        condition: service_started
-      action-request:
-        condition: service_started
-      soloviov-demo-frontend:
-        condition: service_started
-      the-page-mongo-express:
-        condition: service_started
-      the-page-backend:
-        condition: service_started
-      the-page-frontend:
-        condition: service_started
+      - short-time-code
+      - action-request
+      - soloviov-demo-frontend
+      - the-page-mongo-express
+      - the-page-backend
+      - the-page-frontend
     build:
       dockerfile: ./soloviov-demo-web-proxy/dev.Dockerfile
     restart: always
@@ -81,8 +75,7 @@ services:
   the-page-mongo-express:
     hostname: the-page-mongo-express
     depends_on:
-      the-page-mongo:
-        condition: service_healthy
+      - the-page-mongo
     image: mongo-express:1.0.2
     restart: always
     environment:
@@ -90,7 +83,7 @@ services:
       ME_CONFIG_MONGODB_SERVER: the-page-mongo
       ME_CONFIG_MONGODB_HOST: the-page-mongo
       ME_CONFIG_SITE_BASEURL: /the-page-mongo-express/
-      ME_CONFIG_BASICAUTH: false
+      ME_CONFIG_BASICAUTH: "false"
       ME_CONFIG_BASICAUTH_FILE: /run/secrets/the_page_me_config_basicauth
       ME_CONFIG_BASICAUTH_USERNAME_FILE: /run/secrets/the_page_me_config_basicauth_username
       ME_CONFIG_BASICAUTH_PASSWORD_FILE: /run/secrets/the_page_me_config_basicauth_password
@@ -102,8 +95,7 @@ services:
   the-page-backend:
     hostname: the-page-backend
     depends_on:
-      the-page-mongo:
-        condition: service_healthy
+      - the-page-mongo
     build:
       dockerfile: ./the-page/backend/dev.Dockerfile
     restart: always
@@ -125,8 +117,7 @@ services:
   the-page-frontend:
     hostname: the-page-frontend
     depends_on:
-      the-page-mongo:
-        condition: service_healthy
+      - the-page-mongo
     build:
       dockerfile: ./the-page/frontend/dev.Dockerfile
     restart: always
